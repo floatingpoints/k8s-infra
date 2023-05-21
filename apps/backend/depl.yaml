@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/floatingpoints/backend:v0.1.3 # {"$imagepolicy": "game-point-club:game-point-club-backend"}
+          image: ghcr.io/floatingpoints/backend:v0.1.4 # {"$imagepolicy": "game-point-club:game-point-club-backend"}
           resources:
             requests:
               memory: '128Mi'
