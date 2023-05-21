@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - adminer.game-point-club
+        - adminer.game-point.club
       secretName: adminer-cert-tls
   rules:
-    - host: adminer.game-point-club
+    - host: adminer.game-point.club
       http:
         paths:
           - path: /
