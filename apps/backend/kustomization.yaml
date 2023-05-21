@@ -5,3 +5,4 @@ resources:
   - ingress.yaml
   - env.sealed-secret.yaml
   - env.config-map.yaml
+  - depl.yaml

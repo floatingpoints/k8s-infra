@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-depl
+  namespace: game-point-club
+  annotations:
+    reloader.stakater.com/auto: 'true'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/floatingpoints/backend:main # {"$imagepolicy": "game-point-club:game-point-club-backend"}
+          resources:
+            requests:
+              memory: '128Mi'
+              cpu: '0.25'
+            limits:
+              memory: '256Mi'
+              cpu: '0.5'
+          envFrom:
+            - secretRef:
+                name: backend-env
+            - configMapRef:
+                name: backend-env
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: game-point-club-backend
+  namespace: game-point-club
+spec:
+  image: ghcr.io/floatingpoints/backend
+  interval: 1m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: game-point-club-backend
+  namespace: game-point-club
+spec:
+  imageRepositoryRef:
+    name: game-point-club-backend
+  policy:
+    semver:
+      range: '>=0.1.0'
