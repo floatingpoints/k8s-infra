@@ -5,7 +5,7 @@
 ```bash
 export KEY=$(openssl rand -base64 16)
 export SECRET=$(openssl rand -base64 16)
-export ADMIN_PASSWORD=toBeReplaced
+export ADMIN_PASSWORD=$(openssl rand -base64 16)
 export DB_PASSWORD=toBeReplaced
 export EMAIL_SMTP_PASSWORD=toBeReplaced
 export STORAGE_S3_SECRET=toBeReplaced
@@ -14,7 +14,7 @@ export STORAGE_S3_SECRET=toBeReplaced
 ```bash
 kubectl create secret generic --dry-run=client \
     backend-env \
-    --namespace=time4games-prod \
+    --namespace=game-point-club \
     --from-literal=ADMIN_PASSWORD=$ADMIN_PASSWORD \
     --from-literal=KEY=$KEY \
     --from-literal=SECRET=$SECRET \
