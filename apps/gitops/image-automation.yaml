@@ -1,0 +1,28 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageUpdateAutomation
+metadata:
+  name: game-point-club
+  namespace: game-point-club
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: floatingpoints
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: it@game-point.club
+        name: mrgitops
+      signingKey:
+        secretRef:
+          name: fluxcd-signing-key
+      messageTemplate: '{{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./apps
+    strategy: Setters
